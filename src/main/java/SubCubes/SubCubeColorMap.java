@@ -31,4 +31,14 @@ public class SubCubeColorMap {
     public Color[] getAllColors() {
         return new Color[]{colors.get(Top), colors.get(Bottom), colors.get(Front), colors.get(Back), colors.get(Left), colors.get(Right)};
     }
+
+    @Override
+    public String toString() {
+        return "[top: " + colors.get(Top).name()
+                + ", bottom: " + colors.get(Bottom)
+                + ", front: " + colors.get(Front)
+                + ", back: " + colors.get(Back)
+                + ", left: " + colors.get(Left)
+                + ", right: " + colors.get(Right) + "]";
+    }
 }

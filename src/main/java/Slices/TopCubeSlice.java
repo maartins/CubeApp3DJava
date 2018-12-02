@@ -1,17 +1,14 @@
-package MainApp;
+package Slices;
 
 import Etc.RotationDirection;
+import MainApp.ComparableSliceResult;
+import MainApp.ComparebleSlice;
 import SubCubes.SubCube;
 
-public class TopCubeSlice extends CubeSlice implements ICubeSlice {
+public class TopCubeSlice extends CubeSlice {
 
     public TopCubeSlice(SubCube top_l, SubCube top_m, SubCube top_r, SubCube mid_l, SubCube mid_m, SubCube mid_r, SubCube bot_l, SubCube bot_m, SubCube bot_r) {
         super(top_l, top_m, top_r, mid_l, mid_m, mid_r, bot_l, bot_m, bot_r);
-    }
-
-    @Override
-    public void setRelations(CubeSlice top, CubeSlice bottom, CubeSlice left, CubeSlice right) {
-        super.setRelations(top, bottom, left, right);
     }
 
     @Override
@@ -36,6 +33,25 @@ public class TopCubeSlice extends CubeSlice implements ICubeSlice {
         bottom.setTopSide(bot_l, bot_m, bot_r);
         left.setTopSide(top_l, mid_l, bot_l);
         right.setTopSide(bot_r, mid_r, top_r);
+    }
+
+    @Override
+    public ComparableSliceResult compareSlice(ComparebleSlice slice) {
+        boolean testTop_l = top_l.getTop() == slice.getTop_l();
+        boolean testTop_m = top_m.getTop() == slice.getTop_m();
+        boolean testTop_r = top_r.getTop() == slice.getTop_r();
+
+        boolean testMid_l = mid_l.getTop() == slice.getMid_l();
+        boolean testMid_m = mid_m.getTop() == slice.getMid_m();
+        boolean testMid_r = mid_r.getTop() == slice.getMid_r();
+
+        boolean testBot_l = bot_l.getTop() == slice.getBot_l();
+        boolean testBot_m = bot_m.getTop() == slice.getBot_m();
+        boolean testBot_r = bot_r.getTop() == slice.getBot_r();
+
+        return new ComparableSliceResult(testTop_l, testTop_m, testTop_r,
+                                         testMid_l, testMid_m, testMid_r,
+                                         testBot_l, testBot_m, testBot_r);
     }
 
     @Override

@@ -9,7 +9,6 @@ public class SubCube {
     private static int global_id = 0;
     private int id;
     private SubCubeType type;
-    private Position slicePosition;
     private SubCubeColorMap colors = new SubCubeColorMap();
 
     public SubCube(ColorPosition cp1){
@@ -182,15 +181,11 @@ public class SubCube {
         return colors.getAllColors();
     }
 
-    public Position getSlicePosition() {
-        return slicePosition;
-    }
-
-    public void setSlicePosition(Position slicePosition) {
-        this.slicePosition = slicePosition;
-    }
-
     public int getId(){
         return id;
+    }
+
+    public String coloursToString() {
+        return colors.toString();
     }
 }

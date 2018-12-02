@@ -1,15 +1,17 @@
-package MainApp;
+package Slices;
 
 import Etc.RotationDirection;
+import MainApp.ComparableSliceResult;
+import MainApp.ComparebleSlice;
 import SubCubes.SubCube;
 
 import java.util.ArrayList;
 
 /**
- * Represents a side of cube in a 2D space
+ * Represents a side of a cube in a 2D space
  */
 
-public class CubeSlice {
+public abstract class CubeSlice {
     protected SubCube top_l, top_m, top_r;
     protected SubCube mid_l, mid_m, mid_r;
     protected SubCube bot_l, bot_m, bot_r;
@@ -40,7 +42,7 @@ public class CubeSlice {
         subCubes.add(this.bot_r);
     }
 
-    protected void setRelations(CubeSlice top, CubeSlice bottom, CubeSlice left, CubeSlice right){
+    public void setRelations(CubeSlice top, CubeSlice bottom, CubeSlice left, CubeSlice right){
         this.top = top;
         this.bottom = bottom;
         this.left = left;
@@ -51,23 +53,44 @@ public class CubeSlice {
         this.top_l = top_l;
         this.mid_l = mid_l;
         this.bot_l = bot_l;
+        updateSubCubeList();
     }
 
     protected void setRightSide(SubCube top_r, SubCube mid_r, SubCube bot_r) {
         this.top_r = top_r;
         this.mid_r = mid_r;
         this.bot_r = bot_r;
+        updateSubCubeList();
     }
 
     protected void setTopSide(SubCube top_l, SubCube top_m, SubCube top_r) {
         this.top_l = top_l;
         this.top_m = top_m;
         this.top_r = top_r;
+        updateSubCubeList();
     }
 
     protected void setBottomSide(SubCube bot_l, SubCube bot_m, SubCube bot_r) {
         this.bot_l = bot_l;
         this.bot_m = bot_m;
         this.bot_r = bot_r;
+        updateSubCubeList();
     }
+
+    private void updateSubCubeList(){
+        subCubes.clear();
+        subCubes.add(this.top_l);
+        subCubes.add(this.top_m);
+        subCubes.add(this.top_r);
+        subCubes.add(this.mid_l);
+        subCubes.add(this.mid_m);
+        subCubes.add(this.mid_r);
+        subCubes.add(this.bot_l);
+        subCubes.add(this.bot_m);
+        subCubes.add(this.bot_r);
+    }
+
+    public abstract void rotate(RotationDirection direction);
+    public abstract ComparableSliceResult compareSlice(ComparebleSlice slice);
+    public abstract void display();
 }

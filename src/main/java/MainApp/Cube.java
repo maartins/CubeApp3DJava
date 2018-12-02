@@ -1,6 +1,8 @@
 package MainApp;
 
+import Etc.Position;
 import Etc.RotationDirection;
+import Slices.CubeSliceManager;
 import SubCubes.Edge;
 import SubCubes.SubCube;
 import SubCubes.Center;
@@ -22,7 +24,6 @@ public class Cube {
 
         if (verifyColors()) {
             csm = new CubeSliceManager(subCubes);
-            csm.rotateSlice(Bottom, RotationDirection.CCW);
         }
     }
 
@@ -73,5 +74,13 @@ public class Cube {
 
         int[] colorCount = new int[]{greenCount, yellowCount, redCount, blueCount, orangeCount, whiteCount};
         return Arrays.stream(colorCount).sum() == 54;
+    }
+
+    public void rotateSlice(Position position, RotationDirection direction) {
+        csm.rotateSlice(position, direction);
+    }
+
+    public ComparableSliceResult compareSlice(Position position, ComparebleSlice slice){
+        return csm.compareSlice(position, slice);
     }
 }
