@@ -2,7 +2,7 @@ package Slices;
 
 import Etc.RotationDirection;
 import MainApp.ComparableSliceResult;
-import MainApp.ComparebleSlice;
+import MainApp.ComparableSlice;
 import SubCubes.SubCube;
 
 public class BackCubeSlice extends CubeSlice {
@@ -31,12 +31,12 @@ public class BackCubeSlice extends CubeSlice {
 
         top.setTopSide(top_r, top_m, top_l);
         bottom.setBottomSide(bot_r, bot_m, bot_l);
-        left.setRightSide(bot_l, mid_l, top_l);
+        left.setRightSide(top_l, mid_l, bot_l);
         right.setLeftSide(top_r, mid_r, bot_r);
     }
 
     @Override
-    public ComparableSliceResult compareSlice(ComparebleSlice slice) {
+    public ComparableSliceResult compareSlice(ComparableSlice slice) {
         boolean testTop_l = top_l.getBack() == slice.getTop_l();
         boolean testTop_m = top_m.getBack() == slice.getTop_m();
         boolean testTop_r = top_r.getBack() == slice.getTop_r();
@@ -60,6 +60,6 @@ public class BackCubeSlice extends CubeSlice {
         System.out.println(top_l.getBack().name() + " \t" + top_m.getBack().name() + " \t" + top_r.getBack().name());
         System.out.println(mid_l.getBack().name() + " \t" + mid_m.getBack().name() + " \t" + mid_r.getBack().name());
         System.out.println(bot_l.getBack().name() + " \t" + bot_m.getBack().name() + " \t" + bot_r.getBack().name());
-        System.out.println("######################################################");
+        System.out.println("••••••••••••••••••••••••••");
     }
 }

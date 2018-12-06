@@ -2,12 +2,12 @@ package MainApp;
 
 import Etc.Color;
 
-public class ComparebleSlice {
+public class ComparableSlice {
     private Color top_l, top_m, top_r;
     private Color mid_l, mid_m, mid_r;
     private Color bot_l, bot_m, bot_r;
 
-    public ComparebleSlice(Color top_l, Color top_m, Color top_r, Color mid_l, Color mid_m, Color mid_r, Color bot_l, Color bot_m, Color bot_r) {
+    public ComparableSlice(Color top_l, Color top_m, Color top_r, Color mid_l, Color mid_m, Color mid_r, Color bot_l, Color bot_m, Color bot_r) {
         this.top_l = top_l;
         this.top_m = top_m;
         this.top_r = top_r;

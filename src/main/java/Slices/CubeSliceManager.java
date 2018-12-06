@@ -3,9 +3,8 @@ package Slices;
 import Etc.Position;
 import Etc.RotationDirection;
 import MainApp.ComparableSliceResult;
-import MainApp.ComparebleSlice;
+import MainApp.ComparableSlice;
 import SubCubes.SubCube;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,23 +43,21 @@ public class CubeSliceManager {
         slices.get(Back).setRelations(slices.get(Top), slices.get(Bottom), slices.get(Right), slices.get(Left));
         slices.get(Left).setRelations(slices.get(Top), slices.get(Bottom), slices.get(Back), slices.get(Front));
         slices.get(Right).setRelations(slices.get(Top), slices.get(Bottom), slices.get(Front), slices.get(Back));
-
-        displayAllSlices();
     }
 
     public void rotateSlice(Position position, RotationDirection direction){
-        System.out.println("----- Rotating " + position.name() + ": " + direction.name() + " -----");
+        System.out.println("----- Rotating " + position.name() + ": " + direction.name());
         slices.get(position).rotate(direction);
         displayAllSlices();
     }
 
-    public ComparableSliceResult compareSlice(Position position, ComparebleSlice slice) {
+    public ComparableSliceResult compareSlice(Position position, ComparableSlice slice) {
         System.out.println("----- Comparing " + position.name() + " slices");
         return slices.get(position).compareSlice(slice);
     }
 
     public void displayAllSlices() {
-        System.out.println("----- Displaying all slices -----");
+        System.out.println("----- Displaying all slices");
         slices.forEach((p, s) -> s.display());
     }
 }

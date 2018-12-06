@@ -1,5 +1,6 @@
 package MainApp;
 
+import Etc.CubeType;
 import Etc.Position;
 import Etc.RotationDirection;
 import Slices.CubeSliceManager;
@@ -8,6 +9,7 @@ import SubCubes.SubCube;
 import SubCubes.Center;
 import SubCubes.Corner;
 import Etc.ColorPosition;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,15 +21,58 @@ public class Cube {
     private ArrayList<SubCube> subCubes = new ArrayList<>();
     private CubeSliceManager csm;
 
-    public Cube(){
-        createPresetSubCubes();
+    public Cube(CubeType type){
+        switch (type) {
+            case Solved:
+                createSolvedCube();
+                break;
+            case Hardcoded:
+                createHardcodedCube();
+                break;
+        }
+
 
         if (verifyColors()) {
             csm = new CubeSliceManager(subCubes);
+        } else {
+            throw new InternalException("Bad colors");
         }
     }
 
-    private void createPresetSubCubes() {
+    private void createSolvedCube() {
+        // top
+        subCubes.add(new Corner(new ColorPosition(Red, Left), new ColorPosition(White, Front), new ColorPosition(Green, Top)));
+        subCubes.add(new Edge(new ColorPosition(White, Front), new ColorPosition(Green, Top)));
+        subCubes.add(new Corner(new ColorPosition(White, Front), new ColorPosition(Green, Top), new ColorPosition(Orange, Right)));
+        subCubes.add(new Edge(new ColorPosition(Red, Left), new ColorPosition(Green, Top)));
+        subCubes.add(new Center(new ColorPosition(Green, Top)));
+        subCubes.add(new Edge(new ColorPosition(Green, Top), new ColorPosition(Orange, Right)));
+        subCubes.add(new Corner(new ColorPosition(Red, Left), new ColorPosition(Green, Top), new ColorPosition(Yellow, Back)));
+        subCubes.add(new Edge(new ColorPosition(Green, Top), new ColorPosition(Yellow, Back)));
+        subCubes.add(new Corner(new ColorPosition(Green, Top), new ColorPosition(Orange, Right), new ColorPosition(Yellow, Back)));
+        // middle
+        subCubes.add(new Edge(new ColorPosition(Red, Left), new ColorPosition(White, Front)));
+        subCubes.add(new Center(new ColorPosition(White, Front)));
+        subCubes.add(new Edge(new ColorPosition(White, Front), new ColorPosition(Orange, Right)));
+        subCubes.add(new Center(new ColorPosition(Red, Left)));
+        subCubes.add(new Center(new ColorPosition(None, Top))); // empty core sub cube
+        subCubes.add(new Center(new ColorPosition(Orange, Right)));
+        subCubes.add(new Edge(new ColorPosition(Red, Left), new ColorPosition(Yellow, Back)));
+        subCubes.add(new Center(new ColorPosition(Yellow, Back)));
+        subCubes.add(new Edge(new ColorPosition(Yellow, Back), new ColorPosition(Orange, Right)));
+        // bottom
+        subCubes.add(new Corner(new ColorPosition(Red, Left), new ColorPosition(White, Front), new ColorPosition(Blue, Bottom)));
+        subCubes.add(new Edge(new ColorPosition(White, Front), new ColorPosition(Blue, Bottom)));
+        subCubes.add(new Corner(new ColorPosition(White, Front), new ColorPosition(Blue, Bottom), new ColorPosition(Orange, Right)));
+        subCubes.add(new Edge(new ColorPosition(Red, Left), new ColorPosition(Blue, Bottom)));
+        subCubes.add(new Center(new ColorPosition(Blue, Bottom)));
+        subCubes.add(new Edge(new ColorPosition(Blue, Bottom), new ColorPosition(Orange, Right)));
+        subCubes.add(new Corner(new ColorPosition(Red, Left), new ColorPosition(Blue, Bottom), new ColorPosition(Yellow, Back)));
+        subCubes.add(new Edge(new ColorPosition(Blue, Bottom), new ColorPosition(Yellow, Back)));
+        subCubes.add(new Corner(new ColorPosition(Blue, Bottom), new ColorPosition(Orange, Right), new ColorPosition(Yellow, Back)));
+    }
+
+    private void createHardcodedCube() {
         // top
         subCubes.add(new Corner(new ColorPosition(Red, Left), new ColorPosition(White, Front), new ColorPosition(Green, Top)));
         subCubes.add(new Edge(new ColorPosition(Yellow, Front), new ColorPosition(Green, Top)));
@@ -60,7 +105,7 @@ public class Cube {
         subCubes.add(new Corner(new ColorPosition(White, Bottom), new ColorPosition(Green, Right), new ColorPosition(Orange, Back)));
     }
 
-    public boolean verifyColors(){
+    private boolean verifyColors(){
         int greenCount = 0, yellowCount = 0, redCount = 0, blueCount = 0, orangeCount = 0, whiteCount = 0;
 
         for (SubCube sc: subCubes) {
@@ -80,7 +125,11 @@ public class Cube {
         csm.rotateSlice(position, direction);
     }
 
-    public ComparableSliceResult compareSlice(Position position, ComparebleSlice slice){
+    public ComparableSliceResult compareSlice(Position position, ComparableSlice slice){
         return csm.compareSlice(position, slice);
+    }
+
+    public void display() {
+        csm.displayAllSlices();
     }
 }

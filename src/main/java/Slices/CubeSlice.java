@@ -2,7 +2,7 @@ package Slices;
 
 import Etc.RotationDirection;
 import MainApp.ComparableSliceResult;
-import MainApp.ComparebleSlice;
+import MainApp.ComparableSlice;
 import SubCubes.SubCube;
 
 import java.util.ArrayList;
@@ -91,6 +91,6 @@ public abstract class CubeSlice {
     }
 
     public abstract void rotate(RotationDirection direction);
-    public abstract ComparableSliceResult compareSlice(ComparebleSlice slice);
+    public abstract ComparableSliceResult compareSlice(ComparableSlice slice);
     public abstract void display();
 }
