@@ -13,7 +13,8 @@ public class Main {
     }
 
     private static void testingScrable() {
-        Cube scrabledCube = ScrableReader.generateFromString("U1U1F1U1U1R3L1F1F1U1F3B3R1L1U1U1R1U1D3R1L3D1R3L3D3");
+        Cube scrabledCube = ScrableReader.generateFromString("U1U1F1"); // U1U1R3L1F1F1U1F3B3R1L1U1U1R1U1D3R1L3D1R3L3D3
+        NEATSolver solver = new NEATSolver(scrabledCube);
     }
 
     private static void testingHardcoded() {
